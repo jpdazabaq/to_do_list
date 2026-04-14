@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablero - To Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">To Do List App</a>
+            <button class="btn btn-outline-light ms-auto" id="logoutBtn">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="card shadow-sm p-4">
+            <h1 id="welcomeMessage">Cargando...</h1>
+            <p class="text-muted">¡Has accedido exitosamente usando la información de tu LocalStorage!</p>
+            <hr>
+            <h3>Tus tareas</h3>
+            <p>Aquí irá la interfaz de tu lista de tareas.</p>
+        </div>
+    </div>
+
+    <script>
+        // 1. Obtener la información almacenada en el LocalStorage
+        const accountData = localStorage.getItem('userAccount');
+
+        // 2. Comprobar si existe la información (si no existe, redirigir al Login)
+        if (!accountData) {
+            alert('¡No estás autenticado! Redirigiendo al login...');
+            window.location.href = 'index.html';
+        } else {
+            // 3. Convertir la información de "texto JSON" a un Objeto JavaScript real
+            const userObj = JSON.parse(accountData);
+
+            // 4. Usar esos datos en nuestra página
+            document.getElementById('welcomeMessage').innerText = `¡Hola, ${userObj.username}! 👋`;
+        }
+
+        // Lógica para el botón de Cerrar Sesión
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            // En una app real, aquí borrarías el token de sesión. 
+            // Para este ejemplo básico, solo te enviaré al login.
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+
+</html>
