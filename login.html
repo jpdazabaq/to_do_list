@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - To Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9ecef;
+        }
+
+        .card {
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+        <div class="card shadow-lg" style="width: 24rem;">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4" id="formTitle">Iniciar Sesión</h2>
+
+                <form id="authForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="username" placeholder="Ingresa tu usuario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" id="submitBtn">Entrar</button>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <small id="toggleText">¿No tienes cuenta?</small>
+                    <a href="#" id="toggleAction" class="small fw-bold">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const authForm = document.getElementById('authForm');
+        const formTitle = document.getElementById('formTitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleAction = document.getElementById('toggleAction');
+        const toggleText = document.getElementById('toggleText');
+
+        let isRegistering = false;
+
+        // Cambiar entre modo "Login" y "Registro"
+        toggleAction.addEventListener('click', (e) => {
+            e.preventDefault();
+            isRegistering = !isRegistering;
+
+            formTitle.innerText = isRegistering ? "Crear Cuenta" : "Iniciar Sesión";
+            submitBtn.innerText = isRegistering ? "Registrarse" : "Entrar";
+            toggleText.innerText = isRegistering ? "¿Ya tienes cuenta?" : "¿No tienes cuenta?";
+            toggleAction.innerText = isRegistering ? "Inicia Sesión" : "Regístrate";
+        });
+
+        // Lógica principal
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if (isRegistering) {
+                // --- GUARDAR EN LOCALSTORAGE ---
+                const newUser = { username: user, password: pass };
+                localStorage.setItem('userAccount', JSON.stringify(newUser));
+
+                alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+                toggleAction.click(); // Cambiar automáticamente a modo login
+            } else {
+                // --- LEER DE LOCALSTORAGE ---
+                const storedUser = JSON.parse(localStorage.getItem('userAccount'));
+
+                if (storedUser && storedUser.username === user && storedUser.password === pass) {
+                    alert('¡Login exitoso! Bienvenido.');
+                    window.location.href = 'tasks.html';
+                } else {
+                    alert('Usuario o contraseña incorrectos. ¿Ya te registraste?');
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
