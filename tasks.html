@@ -39,7 +39,7 @@
         // 2. Comprobar si existe la información (si no existe, redirigir al Login)
         if (!accountData) {
             alert('¡No estás autenticado! Redirigiendo al login...');
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
         } else {
             // 3. Convertir la información de "texto JSON" a un Objeto JavaScript real
             const userObj = JSON.parse(accountData);
@@ -52,7 +52,7 @@
         document.getElementById('logoutBtn').addEventListener('click', () => {
             // En una app real, aquí borrarías el token de sesión. 
             // Para este ejemplo básico, solo te enviaré al login.
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
         });
     </script>
 </body>
