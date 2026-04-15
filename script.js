@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="check-btn"><span class="material-symbols-outlined">radio_button_unchecked</span></button>
                 <span class="task-text">${text}</span>
             </div>
-            <button class="star-btn"><span class="material-symbols-outlined">star_border</span></button>
+            <button class="delete-btn"><span class="material-symbols-outlined">delete</span></button>
         `;
 
         // Añadir evento al botón de check
@@ -41,17 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Añadir evento al botón de estrella
-        const starBtn = li.querySelector('.star-btn');
-        starBtn.addEventListener('click', () => {
-            const icon = starBtn.querySelector('.material-symbols-outlined');
-            if (icon.textContent === 'star_border') {
-                icon.textContent = 'star';
-                icon.style.color = 'var(--accent-color)';
-            } else {
-                icon.textContent = 'star_border';
-                icon.style.color = 'var(--text-secondary)';
-            }
+        // Añadir evento al botón de eliminar
+        const deleteBtn = li.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', () => {
+            li.remove();
         });
 
         return li;
@@ -94,15 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const initialStarBtn = document.querySelector('.star-btn');
-    initialStarBtn.addEventListener('click', () => {
-        const icon = initialStarBtn.querySelector('.material-symbols-outlined');
-        if (icon.textContent === 'star_border') {
-            icon.textContent = 'star';
-            icon.style.color = 'var(--accent-color)';
-        } else {
-            icon.textContent = 'star_border';
-            icon.style.color = 'var(--text-secondary)';
-        }
-    });
+    const initialDeleteBtn = document.querySelector('.delete-btn');
+    if (initialDeleteBtn) {
+        initialDeleteBtn.addEventListener('click', () => {
+            initialDeleteBtn.closest('.task-item').remove();
+        });
+    }
 });

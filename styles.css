@@ -174,7 +174,7 @@ main {
     flex-grow: 1;
 }
 
-.check-btn, .star-btn {
+.check-btn, .delete-btn {
     background: none;
     border: none;
     color: var(--text-secondary);
